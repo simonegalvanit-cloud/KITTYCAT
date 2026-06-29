@@ -200,10 +200,10 @@ function buildChecks() {
     row.innerHTML =
       '<span class="check-lbl">' + ch.icon + ch.label + '</span>' +
       '<div class="tpair">' +
-        '<button class="tbtn" id="y-' + ch.k + '" onclick="tick('' + ch.k + '',true,event)">' +
+        '<button class="tbtn" id="y-' + ch.k + '" onclick="tick(\'' + ch.k + '\',true,event)">' +
           '<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>' +
         '</button>' +
-        '<button class="tbtn" id="n-' + ch.k + '" onclick="tick('' + ch.k + '',false,event)">' +
+        '<button class="tbtn" id="n-' + ch.k + '" onclick="tick(\'' + ch.k + '\',false,event)">' +
           '<svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>' +
         '</button>' +
       '</div>';
@@ -427,7 +427,7 @@ function renderView() {
       if (weekRow.win || weekRow.improve) {
         document.getElementById('vref').style.display = 'block';
         document.getElementById('vref-content').innerHTML =
-          (weekRow.win ? '<div class="ritem"><div class="rlbl">This week's win</div><div class="rtxt">' + weekRow.win + '</div></div>' : '') +
+          (weekRow.win ? '<div class="ritem"><div class="rlbl">This week\'s win</div><div class="rtxt">' + weekRow.win + '</div></div>' : '') +
           (weekRow.improve ? '<div class="ritem"><div class="rlbl">Working on</div><div class="rtxt">' + weekRow.improve + '</div></div>' : '');
       }
     } else {
