@@ -7,7 +7,7 @@
   --red:#a84040;--rbg:#faf0f0;--rb:#ddb8b8;
   --r:12px;--sans:'DM Sans',system-ui,sans-serif;--serif:'DM Serif Display',Georgia,serif
 }
-body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;-webkit-tap-highlight-color:transparent}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 
 /* LOGIN */
 #login-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;text-align:center}

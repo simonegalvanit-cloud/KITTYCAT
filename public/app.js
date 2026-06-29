@@ -438,6 +438,25 @@ function renderView() {
 
 // ── NOTIFICATIONS ──
 var notifOk = (typeof Notification !== 'undefined');
+var swReg = null;
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').then(function(reg) { swReg = reg; }).catch(function(){});
+}
+
+function fireNotif(title, body) {
+  if (!notifOk || Notification.permission !== 'granted') return;
+  var opts = { body: body, icon: '/icon-192.png' };
+  if (swReg) {
+    swReg.showNotification(title, opts);
+  } else {
+    navigator.serviceWorker.ready.then(function(reg) {
+      reg.showNotification(title, opts);
+    }).catch(function() {
+      try { new Notification(title, opts); } catch(e) {}
+    });
+  }
+}
 
 function syncLoggerNotifBtn() {
   var btn = document.getElementById('nb-log');
@@ -477,7 +496,7 @@ function checkLogNotif() {
   dbGet('daily_checkins', 'date=eq.' + td + '&limit=1').then(function(rows) {
     if (!rows.length) {
       localStorage.setItem('kcm_lday', td);
-      new Notification('Kitty Cat Monitor', { body: "Don't forget to log Kitty Cat's check-in today!" });
+      fireNotif('Kitty Cat Monitor', "Don't forget to log Kitty Cat's check-in today!");
     }
   }).catch(function(){});
 }
@@ -521,7 +540,7 @@ function startRealtime() {
       var msg = JSON.parse(raw.data);
       if (msg.event === 'INSERT') {
         if (notifOk && Notification.permission === 'granted') {
-          new Notification('Kitty Cat Monitor', { body: 'Daddiebear just logged your check-in!' });
+          fireNotif('Kitty Cat Monitor', 'Daddiebear just logged your check-in!');
         }
         setTimeout(renderView, 600);
       }
